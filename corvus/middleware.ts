@@ -1,13 +1,12 @@
+// Import only the necessary middleware from "@clerk/nextjs/server"
 import { clerkMiddleware } from "@clerk/nextjs/server";
 
-// Define your middleware
-const middleware = clerkMiddleware();
+// Use the clerkMiddleware
+export default clerkMiddleware({
+  // Your middleware configurations
+});
 
-// Export the middleware
-export default middleware;
-
-// Define additional configuration if needed
+// Export additional configurations if needed
 export const config = {
-  // Define your matcher patterns
   matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
 };
