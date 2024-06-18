@@ -25,7 +25,7 @@ export const ServerHeader = ({
 }: ServerHeaderProps) => {
   const {onOpen} = useModal();
     const isAdmin = role === MemberRole.ADMIN;
-    const isModerator = isAdmin || role ===MemberRole.MODERATOR;
+    const isModerator = isAdmin || role === MemberRole.MODERATOR;
 
     return(
         <DropdownMenu>
@@ -46,6 +46,7 @@ export const ServerHeader = ({
           >
            {isModerator && (
             <DropdownMenuItem
+            onClick={() => onOpen("invite", {server})}
             className="text-indigo-600 dark:text-indigo-400 px-3 py-2 text-sm cursor-pointer"
             >
               Invite people  
@@ -56,6 +57,7 @@ export const ServerHeader = ({
            )}
             {isAdmin && (
             <DropdownMenuItem
+            onClick={() => onOpen("editServer", {server})}
             className=" px-3 py-2 text-sm cursor-pointer"
             >
               Server settings 
@@ -66,6 +68,8 @@ export const ServerHeader = ({
            )}
             {isAdmin && (
             <DropdownMenuItem
+            onClick={() => onOpen("members", {server})}
+
             className=" px-3 py-2 text-sm cursor-pointer"
             >
               Manage members 
@@ -90,6 +94,8 @@ export const ServerHeader = ({
            )} 
             {isAdmin && (
             <DropdownMenuItem
+            onClick={() => onOpen("deleteServer", {server})}
+
             className="text-rose-500 px-3 py-2 text-sm cursor-pointer"
             >
               Delete server
@@ -98,16 +104,15 @@ export const ServerHeader = ({
               />
             </DropdownMenuItem>
            )}
-            {isAdmin && (
-            <DropdownMenuItem
-            className="text-rose-500 px-3 py-2 text-sm cursor-pointer"
-            >
-              Leave server
-              <LogOut
-              className="h-4 w-4 ml-auto"
-              />
-            </DropdownMenuItem>
-           )}
+            {!isAdmin && (
+                    <DropdownMenuItem
+                    onClick={() => onOpen("leaveServer", {server})}
+                        className="text-rose-500 px-3 py-2 text-sm cursor-pointer"
+                    >
+                        Leave server
+                        <LogOut className="h-4 w-4 ml-auto" />
+                    </DropdownMenuItem>
+                )}
           </DropdownMenuContent>
         </DropdownMenu>    
     )
